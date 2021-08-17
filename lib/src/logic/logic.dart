@@ -11,7 +11,6 @@ class Logic {
       final List<int> firstFile = await File(file.path!).readAsBytes();
       final String fixedString = Windows1256Codec().decode(firstFile);
       await File('${exDirectory!.path}/[Fixed]${file.name}').writeAsString(fixedString);
-      print(exDirectory!.path);
     }
   }
 }
