@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:file_picker/file_picker.dart';
 
 import '../languages/fa_lang.dart';
+import '../logic/logic.dart';
 
-class ChooseFileWidget extends StatelessWidget {
+class ChooseFileWidget extends StatefulWidget {
+  @override
+  _ChooseFileWidgetState createState() => _ChooseFileWidgetState();
+}
+
+class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
+  FilePickerResult? result;
+  List<PlatformFile>? files;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -28,7 +38,17 @@ class ChooseFileWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () async {
+          result = await FilePicker.platform.pickFiles(
+            allowMultiple: true,
+            type: FileType.custom,
+            allowedExtensions: ['srt', 'ass'],
+          );
+          if (result != null) {
+            files = result!.files;
+          }
+          setState(() {});
+        },
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Text(
@@ -47,7 +67,9 @@ class ChooseFileWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: null,
+        onPressed: files == null ? null : () {
+          fixSubtitleFile(files!);
+        },
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Text(
@@ -69,7 +91,23 @@ class ChooseFileWidget extends StatelessWidget {
   }
 
   Widget listOfFiles() {
-    return Text('');
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: files != null ? files!.length : 1,
+      itemBuilder: (context, int index) {
+        if (files == null) {
+          return Text('');
+        } else {
+          return Text(
+            files![index].name,
+            textDirection: TextDirection.ltr,
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          );
+        }
+      },
+    );
   }
 
   Widget separator() {
