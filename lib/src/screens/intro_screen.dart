@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:easy_folder_picker/FolderPicker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../languages/fa_lang.dart';
 import './main_screen.dart';
@@ -25,23 +24,30 @@ class _IntroScreenState extends State<IntroScreen> {
       PageViewModel(
         title: FaLang.introOneTitle,
         body: FaLang.introOneBody,
-        image: Image.network('https://www.pngrepo.com/png/52754/180/list.png'),
+        image: Image.asset(
+          'assets/images/list.png',
+          height: 128,
+        ),
       ),
       PageViewModel(
         title: FaLang.introTwoTitle,
         body: FaLang.introTwoBody,
-        image: Image.network('https://www.pngrepo.com/png/168427/180/puzzle.png'),
+        image: Image.asset(
+          'assets/images/puzzle.png',
+          height: 128,
+        ),
       ),
       PageViewModel(
         title: FaLang.introThreeTitle,
         body: FaLang.introThreeBody,
-        image: Image.network('https://www.pngrepo.com/png/788/180/folder.png'),
+        image: Image.asset(
+          'assets/images/folder.png',
+          height: 128,
+        ),
         footer: Column(
           children: [
             ElevatedButton(
               onPressed: () async {
-                PermissionStatus status = await Permission.storage.status;
-
                 prefs = await SharedPreferences.getInstance();
 
                 defaultPathDirectory = await FolderPicker.pick(
