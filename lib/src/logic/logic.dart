@@ -2,15 +2,16 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:enough_convert/enough_convert.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Logic {
   void fixSubtitleFile(List<PlatformFile> files) async {
-    Directory? exDirectory = await getExternalStorageDirectory();
+    SharedPreferences pres = await SharedPreferences.getInstance();
     for (var file in files) {
       final List<int> firstFile = await File(file.path!).readAsBytes();
       final String fixedString = Windows1256Codec().decode(firstFile);
-      await File('${exDirectory!.path}/[Fixed]${file.name}').writeAsString(fixedString);
+      final lestFile = await File('${pres.getString('subtitlePath')}/[Fixed]${file.name}').create(recursive: true);
+      lestFile.writeAsString(fixedString);
     }
   }
 }

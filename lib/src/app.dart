@@ -30,7 +30,6 @@ class App extends StatelessWidget {
         future: SharedPreferences.getInstance(),
         builder: (context, AsyncSnapshot<SharedPreferences> snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data!.getString('subtitlePath'));
             return snapshot.data!.getString('subtitlePath') == null ? IntroScreen() : MainScreen();
           } else {
             return IntroScreen();

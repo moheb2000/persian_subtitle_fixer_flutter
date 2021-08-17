@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../languages/fa_lang.dart';
 import '../logic/logic.dart';
@@ -67,7 +68,11 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
     return Container(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: files == null ? null : () {
+        onPressed: files == null ? null : () async {
+          PermissionStatus status = await Permission.storage.status;
+          if (status.isDenied) {
+            Permission.storage.request();
+          }
           fixSubtitleFile(files!);
         },
         child: Padding(

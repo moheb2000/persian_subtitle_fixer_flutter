@@ -1,16 +1,17 @@
 class FaLang {
-  static const introOneTitle = 'خوش آمدید';
-  static const introTwoTitle = 'دسترسی ها';
-  static const introThreeTitle = 'دایرکتوری پیشفرض';
-  static const introOneBody = 'این اپلیکیشن این امکان را به شما می دهد تا انکودینگ زیرنویس های فارسی را اصلاح کنید. در بسیاری از موارد زیرنویس های ساخته شده در ویندوز از انکودینگ مناسب برای پخش در ویدیوپلیر های اندروید برخوردار نیستند';
-  static const introTwoBody = 'این اپلیکیشن برای دسترسی به فایل های زیرنویس و همچنین ذخیره آن ها در موبایل به مجوز نیاز دارد. روی دکمه زیر کلیک کنید و مجوزها را تایید کنید';
-  static const introThreeBody = 'لطفا برای ذخیره زیرنویس های اصلاح شده مسیر دایرکتوری مورد نظر خود را وارد کنید';
+  static const introOneTitle = 'سلام به همه';
+  static const introTwoTitle = 'اصلاح زیرنویس';
+  static const introThreeTitle = 'مسیر پیشفرض';
+  static const introOneBody = 'به برنامه «اصلاح زیرنویس پارسی» خوش اومدید.';
+  static const introTwoBody = 'اگه مشکل نمایش زیرنویس های فارسی رو داری، راه حلت اینجاست. کافیه زیرنویس رو به من بدی تا برات درستش کنم و دیگه هیچوقت نگران خرابی زیرنویس ها نباشی';
+  static const introThreeBody = 'برای این که زیرنویس های اصلاح شده رو ذخیره کنم لازمه یه پوشه پیشفرض مشخص کنی.';
+  static const introAlertMessage = 'بدون پوشه پیشفرض نمی تونی وارد صفحه اصلی برنامه بشی!';
+  static const introAlertButton = 'باشه';
   static const next = 'بعدی';
   static const done = 'تمام';
-  static const grantPermissionButton = 'قبول دسترسی ها';
-  static const chooseFolderButton = 'انتخاب دایرکتوری پیشفرض';
+  static const chooseFolderButton = 'انتخاب پوشه پیشفرض';
   static const mainScreenTitle = 'اصلاح زیرنویس پارسی';
   static const chooseFileButton = 'انتخاب فایل زیرنویس';
   static const fixButton = 'اصلاح زیرنویس';
-  static const multipleFileChooseHint = 'شما می توانید چند فایل زیرنویس را انتخاب کنید. اپلیکیشن به طور خودکار تمام زیرنویس ها را اصطلاح کرده و در دایرکتوری دانلود موبایل شما ذخیره می کند.';
+  static const multipleFileChooseHint = 'امکان انتخاب چند فایل با هم وجود داره. اگه چند تا زیرنویس داری همرو با هم انتخاب کن.';
 }
