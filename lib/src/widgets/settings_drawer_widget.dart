@@ -24,58 +24,87 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
             child: Column(
               children: [
                 separator(),
-                Text(
-                  FaLang.settingsTitle,
-                  style: TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
+                titleSettings(FaLang.settingsTitle),
                 separator(),
-                Text(
-                  FaLang.changeDefaultFolderSettings,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
+                subtitleSettings(FaLang.changeDefaultFolderSettings),
                 separator(),
                 FutureBuilder(
                   future: SharedPreferences.getInstance(),
-                  builder: (context, AsyncSnapshot<SharedPreferences> snapshot) {
+                  builder:
+                      (context, AsyncSnapshot<SharedPreferences> snapshot) {
                     return TextField(
                       enabled: false,
                       decoration: InputDecoration(
-                        hintText: snapshot.hasData ? snapshot.data!.getString('subtitlePath') : '',
+                        border: InputBorder.none,
+                        hintText: snapshot.hasData
+                            ? snapshot.data!.getString('subtitlePath')
+                            : '',
                         hintTextDirection: TextDirection.ltr,
                       ),
                     );
                   },
                 ),
                 separator(),
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    prefs = await SharedPreferences.getInstance();
-
-                    Directory? defaultPathDirectory = await FolderPicker.pick(
-                        allowFolderCreation: true,
-                        context: context,
-                        rootDirectory: Directory(FolderPicker.ROOTPATH),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))));
-
-                    if (defaultPathDirectory != null) {
-                      await prefs.setString(
-                          'subtitlePath', defaultPathDirectory.path);
-                    }
-                    setState(() {});
-                  },
-                  icon: Icon(Icons.folder_rounded),
-                  label: Text(FaLang.changeDefaultFolderSettings),
-                ),
+                chooseFolderSettings(),
                 separator(),
+                titleSettings(FaLang.aboutTitle),
+                separator(),
+                about(),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget titleSettings(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: 24,
+      ),
+    );
+  }
+
+  Widget subtitleSettings(String subtitle) {
+    return Text(
+      subtitle,
+      style: TextStyle(
+        fontSize: 18,
+      ),
+    );
+  }
+
+  Widget chooseFolderSettings() {
+    return ElevatedButton.icon(
+      onPressed: () async {
+        prefs = await SharedPreferences.getInstance();
+
+        Directory? defaultPathDirectory = await FolderPicker.pick(
+            allowFolderCreation: true,
+            context: context,
+            rootDirectory: Directory(FolderPicker.ROOTPATH),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))));
+
+        if (defaultPathDirectory != null) {
+          await prefs.setString('subtitlePath', defaultPathDirectory.path);
+        }
+        setState(() {});
+      },
+      icon: Icon(Icons.folder_rounded),
+      label: Text(FaLang.changeDefaultFolderSettings),
+    );
+  }
+
+  Widget about() {
+    return Container(
+      alignment: Alignment.topRight,
+      child: Column(
+        children: [
+          Text('توسعه دهنده: محمد ابراهیمی'),
+        ],
       ),
     );
   }

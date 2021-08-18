@@ -9,10 +9,18 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       // Theme config
       theme: ThemeData(
         fontFamily: PersianFonts.Vazir.fontFamily,
       ),
+
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        fontFamily: PersianFonts.Vazir.fontFamily,
+      ),
+
+      themeMode: ThemeMode.system,
 
       // Localization config
       localizationsDelegates: [
