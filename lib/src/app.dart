@@ -9,6 +9,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'اصلاح زیرنویس پارسی',
 
       // Theme config
       theme: ThemeData(
