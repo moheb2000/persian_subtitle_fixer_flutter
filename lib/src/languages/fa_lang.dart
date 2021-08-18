@@ -19,4 +19,6 @@ class FaLang {
   static const settingsTitle = 'تنظیمات';
   static const changeDefaultFolderSettings = 'تغییر پوشه پیشفرض';
   static const aboutTitle = 'درباره';
+  static const fixed = 'اصلاح شده';
+  static const unknownFormat = 'فرمت ناشناخته';
 }

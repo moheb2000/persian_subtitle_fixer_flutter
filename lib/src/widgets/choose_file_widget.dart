@@ -28,6 +28,8 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
             separator(),
             fixButton(),
             separator(),
+            showResult(fixedCount, ignoredCount),
+            separator(),
             listOfFiles(),
           ],
         ),
@@ -42,8 +44,7 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
         onPressed: () async {
           result = await FilePicker.platform.pickFiles(
             allowMultiple: true,
-            type: FileType.custom,
-            allowedExtensions: ['srt', 'ass'],
+            type: FileType.any,
           );
           if (result != null) {
             files = result!.files;
@@ -68,13 +69,18 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
     return Container(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: files == null ? null : () async {
-          PermissionStatus status = await Permission.storage.status;
-          if (status.isDenied) {
-            Permission.storage.request();
-          }
-          fixSubtitleFile(files!);
-        },
+        onPressed: files == null
+            ? null
+            : () async {
+                PermissionStatus status = await Permission.storage.status;
+                if (status.isDenied) {
+                  Permission.storage.request();
+                }
+                fixSubtitleFile(files!).then((_) {
+                  files = null;
+                  setState(() {});
+                });
+              },
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Text(
@@ -112,6 +118,29 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
           );
         }
       },
+    );
+  }
+
+  Widget showResult(int fixed, int ignored) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              Text(FaLang.fixed),
+              Text('$fixed'),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              Text(FaLang.unknownFormat),
+              Text('$ignored'),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
