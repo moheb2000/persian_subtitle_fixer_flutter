@@ -26,7 +26,7 @@ class _IntroScreenState extends State<IntroScreen> {
         body: FaLang.introOneBody,
         image: Image.asset(
           'assets/images/list.png',
-          height: 128,
+          height: 180,
         ),
       ),
       PageViewModel(
@@ -34,15 +34,23 @@ class _IntroScreenState extends State<IntroScreen> {
         body: FaLang.introTwoBody,
         image: Image.asset(
           'assets/images/puzzle.png',
-          height: 128,
+          height: 180,
         ),
       ),
       PageViewModel(
         title: FaLang.introThreeTitle,
         body: FaLang.introThreeBody,
         image: Image.asset(
+          'assets/images/android.png',
+          height: 180,
+        ),
+      ),
+      PageViewModel(
+        title: FaLang.introFourTitle,
+        body: FaLang.introFourBody,
+        image: Image.asset(
           'assets/images/folder.png',
-          height: 128,
+          height: 180,
         ),
         footer: Column(
           children: [
