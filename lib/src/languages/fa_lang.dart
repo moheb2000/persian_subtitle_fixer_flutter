@@ -14,4 +14,6 @@ class FaLang {
   static const chooseFileButton = 'انتخاب فایل زیرنویس';
   static const fixButton = 'اصلاح زیرنویس';
   static const multipleFileChooseHint = 'امکان انتخاب چند فایل با هم وجود داره. اگه چند تا زیرنویس داری همرو با هم انتخاب کن.';
+  static const settingsTitle = 'تنظیمات';
+  static const changeDefaultFolderSettings = 'تغییر پوشه پیشفرض';
 }
