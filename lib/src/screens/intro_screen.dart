@@ -25,7 +25,7 @@ class _IntroScreenState extends State<IntroScreen> {
         title: FaLang.introOneTitle,
         body: FaLang.introOneBody,
         image: Image.asset(
-          'assets/images/list.png',
+          'assets/images/welcome.png',
           height: 180,
         ),
       ),
