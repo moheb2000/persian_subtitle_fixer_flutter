@@ -14,6 +14,12 @@ class SettingsDrawerWidget extends StatefulWidget {
 
 class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
   @override
+  void initState() {
+    db.themeModeNotifier.value = db.themeModeNotifier.value;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
@@ -37,6 +43,10 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
                 ),
                 separator(),
                 chooseFolderSettings(),
+                separator(),
+                subtitleSettings(FaLang.changeThemeModeSettings),
+                separator(),
+                chooseThemeMode(),
                 separator(),
                 titleSettings(FaLang.aboutTitle),
                 separator(),
@@ -87,6 +97,43 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
       },
       icon: Icon(Icons.folder_rounded),
       label: Text(FaLang.changeDefaultFolderSettings),
+    );
+  }
+
+  Widget chooseThemeMode() {
+    return Column(
+      children: [
+        RadioListTile(
+          value: ThemeMode.system,
+          title: Text(FaLang.system),
+          groupValue: db.themeModeNotifier.value,
+          onChanged: (ThemeMode? value) {
+            db.themeModeNotifier.value = value!;
+            db.prefs.setInt('themeModeInt', 0);
+            setState(() {});
+          },
+        ),
+        RadioListTile(
+          value: ThemeMode.light,
+          title: Text(FaLang.light),
+          groupValue: db.themeModeNotifier.value,
+          onChanged: (ThemeMode? value) {
+            db.themeModeNotifier.value = value!;
+            db.prefs.setInt('themeModeInt', 1);
+            setState(() {});
+          },
+        ),
+        RadioListTile(
+          value: ThemeMode.dark,
+          title: Text(FaLang.dark),
+          groupValue: db.themeModeNotifier.value,
+          onChanged: (ThemeMode? value) {
+            db.themeModeNotifier.value = value!;
+            db.prefs.setInt('themeModeInt', 2);
+            setState(() {});
+          },
+        ),
+      ],
     );
   }
 
