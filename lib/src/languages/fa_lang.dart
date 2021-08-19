@@ -21,7 +21,7 @@ class FaLang {
   static const aboutTitle = 'درباره';
   static const aboutDeveloper = 'توسعه دهنده: محمد ابراهیمی';
   static const aboutVersion = 'نسخه: ۰ . ۱ . ۰';
-  static const aboutLicense = 'تحت مجوز: test';
+  static const aboutLicense = 'تحت مجوز: Mozilla Public License v2';
   static const fixed = 'اصلاح شده';
   static const unknownFormat = 'فرمت ناشناخته';
   static const githubText = 'گیت هاب';
