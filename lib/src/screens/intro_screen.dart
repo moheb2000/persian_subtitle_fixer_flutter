@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:easy_folder_picker/FolderPicker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../languages/fa_lang.dart';
 import './main_screen.dart';
@@ -53,8 +52,6 @@ class _IntroScreenState extends State<IntroScreen> {
           children: [
             ElevatedButton(
               onPressed: () async {
-                final SharedPreferences prefs = await SharedPreferences.getInstance();
-
                 final Directory? chosenDirectory = await FolderPicker.pick(
                     allowFolderCreation: true,
                     context: context,
@@ -63,7 +60,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(10))));
 
                 if (chosenDirectory != null) {
-                  prefs.setString(
+                  db.prefs.setString(
                       'subtitlePath', chosenDirectory.path);
                   db.defaultDirectoryPath = chosenDirectory.path;
                   setState(() {});

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:easy_folder_picker/FolderPicker.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../languages/fa_lang.dart';
 import '../resources/db.dart';
@@ -70,8 +69,6 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
   Widget chooseFolderSettings() {
     return ElevatedButton.icon(
       onPressed: () async {
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-
         final Directory? chosenDirectory = await FolderPicker.pick(
             allowFolderCreation: true,
             context: context,
@@ -82,7 +79,7 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
                 borderRadius: BorderRadius.all(Radius.circular(10))));
 
         if (chosenDirectory != null) {
-          prefs.setString('subtitlePath', chosenDirectory.path);
+          db.prefs.setString('subtitlePath', chosenDirectory.path);
           db.defaultDirectoryPath = chosenDirectory.path;
           setState(() {});
         }
