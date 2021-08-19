@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../languages/fa_lang.dart';
 import './main_screen.dart';
+import '../resources/db.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -14,13 +15,9 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  late List<PageViewModel> listPagesViewModel;
-  late SharedPreferences prefs;
-  Directory? defaultPathDirectory;
-
   @override
   Widget build(BuildContext context) {
-    listPagesViewModel = [
+    final List<PageViewModel> listPagesViewModel = [
       PageViewModel(
         title: FaLang.introOneTitle,
         body: FaLang.introOneBody,
@@ -56,25 +53,26 @@ class _IntroScreenState extends State<IntroScreen> {
           children: [
             ElevatedButton(
               onPressed: () async {
-                prefs = await SharedPreferences.getInstance();
+                final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-                defaultPathDirectory = await FolderPicker.pick(
+                final Directory? chosenDirectory = await FolderPicker.pick(
                     allowFolderCreation: true,
                     context: context,
                     rootDirectory: Directory(FolderPicker.ROOTPATH),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))));
 
-                if (defaultPathDirectory != null) {
-                  await prefs.setString(
-                      'subtitlePath', defaultPathDirectory!.path);
+                if (chosenDirectory != null) {
+                  prefs.setString(
+                      'subtitlePath', chosenDirectory.path);
+                  db.defaultDirectoryPath = chosenDirectory.path;
+                  setState(() {});
                 }
-                setState(() {});
               },
               child: Text(FaLang.chooseFolderButton),
             ),
             Text(
-              defaultPathDirectory != null ? defaultPathDirectory!.path : '',
+              db.defaultDirectoryPath ?? '',
               textDirection: TextDirection.ltr,
               style: TextStyle(
                 color: Colors.grey,
@@ -91,10 +89,8 @@ class _IntroScreenState extends State<IntroScreen> {
           style: TextStyle(fontWeight: FontWeight.w600)),
       next: Text(FaLang.next),
       isTopSafeArea: true,
-      onDone: () async {
-        prefs = await SharedPreferences.getInstance();
-
-        if (prefs.getString('subtitlePath') != null) {
+      onDone: () {
+        if (db.defaultDirectoryPath != null) {
           Navigator.of(context).pushReplacement(new MaterialPageRoute(
               builder: (BuildContext context) => MainScreen()));
         } else {

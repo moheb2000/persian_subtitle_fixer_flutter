@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../languages/fa_lang.dart';
+import '../resources/db.dart';
 
 class SettingsDrawerWidget extends StatefulWidget {
   @override
@@ -12,8 +13,6 @@ class SettingsDrawerWidget extends StatefulWidget {
 }
 
 class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
-  late SharedPreferences prefs;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,21 +27,13 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
                 separator(),
                 subtitleSettings(FaLang.changeDefaultFolderSettings),
                 separator(),
-                FutureBuilder(
-                  future: SharedPreferences.getInstance(),
-                  builder:
-                      (context, AsyncSnapshot<SharedPreferences> snapshot) {
-                    return TextField(
-                      enabled: false,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: snapshot.hasData
-                            ? snapshot.data!.getString('subtitlePath')
-                            : '',
-                        hintTextDirection: TextDirection.ltr,
-                      ),
-                    );
-                  },
+                TextField(
+                  enabled: false,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: db.defaultDirectoryPath ?? '',
+                    hintTextDirection: TextDirection.ltr,
+                  ),
                 ),
                 separator(),
                 chooseFolderSettings(),
@@ -79,19 +70,22 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
   Widget chooseFolderSettings() {
     return ElevatedButton.icon(
       onPressed: () async {
-        prefs = await SharedPreferences.getInstance();
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        Directory? defaultPathDirectory = await FolderPicker.pick(
+        final Directory? chosenDirectory = await FolderPicker.pick(
             allowFolderCreation: true,
             context: context,
-            rootDirectory: Directory(FolderPicker.ROOTPATH),
+            rootDirectory: db.defaultDirectoryPath != null
+                ? Directory(db.defaultDirectoryPath!)
+                : Directory(FolderPicker.ROOTPATH),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))));
 
-        if (defaultPathDirectory != null) {
-          await prefs.setString('subtitlePath', defaultPathDirectory.path);
+        if (chosenDirectory != null) {
+          prefs.setString('subtitlePath', chosenDirectory.path);
+          db.defaultDirectoryPath = chosenDirectory.path;
+          setState(() {});
         }
-        setState(() {});
       },
       icon: Icon(Icons.folder_rounded),
       label: Text(FaLang.changeDefaultFolderSettings),

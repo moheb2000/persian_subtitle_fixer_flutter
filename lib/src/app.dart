@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:persian_fonts/persian_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import './screens/intro_screen.dart';
 import './screens/main_screen.dart';
+import './resources/db.dart';
 
 class App extends StatelessWidget {
   @override
@@ -36,10 +36,10 @@ class App extends StatelessWidget {
 
       // Home
       home: FutureBuilder(
-        future: SharedPreferences.getInstance(),
-        builder: (context, AsyncSnapshot<SharedPreferences> snapshot) {
+        future: db.syncDb(),
+        builder: (context, AsyncSnapshot<String?> snapshot) {
           if (snapshot.hasData) {
-            return snapshot.data!.getString('subtitlePath') == null ? IntroScreen() : MainScreen();
+            return snapshot.data == null ? IntroScreen() : MainScreen();
           } else {
             return IntroScreen();
           }

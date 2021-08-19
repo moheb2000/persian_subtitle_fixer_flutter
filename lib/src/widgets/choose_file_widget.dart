@@ -12,7 +12,6 @@ class ChooseFileWidget extends StatefulWidget {
 }
 
 class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
-  FilePickerResult? result;
   List<PlatformFile>? files;
 
   @override
@@ -42,14 +41,14 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () async {
-          result = await FilePicker.platform.pickFiles(
+          final FilePickerResult? chosenFiles = await FilePicker.platform.pickFiles(
             allowMultiple: true,
             type: FileType.any,
           );
-          if (result != null) {
-            files = result!.files;
+          if (chosenFiles != null) {
+            files = chosenFiles.files;
+            setState(() {});
           }
-          setState(() {});
         },
         child: Padding(
           padding: EdgeInsets.all(8),
@@ -72,7 +71,7 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
         onPressed: files == null
             ? null
             : () async {
-                PermissionStatus status = await Permission.storage.status;
+                final PermissionStatus status = await Permission.storage.status;
                 if (status.isDenied) {
                   Permission.storage.request();
                 }
