@@ -7,6 +7,7 @@ import 'package:easy_folder_picker/FolderPicker.dart';
 import '../languages/fa_lang.dart';
 import './main_screen.dart';
 import '../resources/db.dart';
+import '../widgets/choose_theme_mode_widget.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -29,15 +30,25 @@ class _IntroScreenState extends State<IntroScreen> {
         title: FaLang.introTwoTitle,
         body: FaLang.introTwoBody,
         image: Image.asset(
-          'assets/images/puzzle.png',
+          'assets/images/android.png',
           height: 180,
         ),
       ),
       PageViewModel(
-        title: FaLang.introThreeTitle,
-        body: FaLang.introThreeBody,
+        title: FaLang.changeThemeModeSettings,
+        bodyWidget: Column(
+          children: [
+            Text(
+              'دوست داری چه رنگی باشم؟',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            ChooseThemeModeWidget(),
+          ],
+        ),
         image: Image.asset(
-          'assets/images/android.png',
+          'assets/images/puzzle.png',
           height: 180,
         ),
       ),
@@ -60,8 +71,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(10))));
 
                 if (chosenDirectory != null) {
-                  db.prefs.setString(
-                      'subtitlePath', chosenDirectory.path);
+                  db.prefs.setString('subtitlePath', chosenDirectory.path);
                   db.defaultDirectoryPath = chosenDirectory.path;
                   setState(() {});
                 }

@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../languages/fa_lang.dart';
 import '../resources/db.dart';
+import './choose_theme_mode_widget.dart';
 
 class SettingsDrawerWidget extends StatefulWidget {
   @override
@@ -13,6 +14,12 @@ class SettingsDrawerWidget extends StatefulWidget {
 }
 
 class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
+  @override
+  void initState() {
+    db.themeModeNotifier.value = db.themeModeNotifier.value;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,6 +44,10 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
                 ),
                 separator(),
                 chooseFolderSettings(),
+                separator(),
+                subtitleSettings(FaLang.changeThemeModeSettings),
+                separator(),
+                ChooseThemeModeWidget(),
                 separator(),
                 titleSettings(FaLang.aboutTitle),
                 separator(),
