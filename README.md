@@ -1,16 +1,16 @@
-# persian_subtitle_fixer
-
-Fix encoding problems in persian subtitles
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div dir="rtl">
+# اصلاح زیرنویس پارسی
+## درباره
+اپلیکیشن «اصلاح زیرنویس پارسی» با هدف اصلاح رمزگذاری (انکودینگ) فایل های زیرنویس فارسی طراحی شده است. این اپلیکیشن رمزگذاری فایل های زیرنویس را از windows-1256 به utf-8 تغییر می دهد. اگر زیرنویس ورودی شما utf-8 باشد مشکلی وجود ندارد و همان را به عنوان خروجی ذخیره می کند.
+## پشتیبانی اندروید
+به دلیل مشکلات دسترسی به حافظه برای ذخیره کردن زیرنویس ها در اندروید ۱۱ و بعد از آن، این اپلیکیشن برای شما به درستی کار نخواهد کرد. افزودن پشتیبانی برای نسخه های جدید منوط به اصلاح مجوزها در پکیج های فلاتر به کار رفته است.
+## پشتیبانی ios
+پکیج [easy_folder_picker](https://pub.dev/packages/easy_folder_picker) که در این اپلیکیشن به کار رفته است، تنها از اندروید پشتیبانی می کند. در صورت وجود پکیج مشابه برای ios امکان افزودن پشتیبانی برای آن وجود خواهد داشت. در حال حاضر این اپلیکیشن فقط برای اندروید موجود است.
+## مجوز استفاده
+این برنامه تحت مجوز [Mozilla Public License v2](./LICENSE) منتشر شده است.
+## نماگرفت (Screenshots)
+![screenshot1](./screenshots/screenshot1.png)
+![screenshot2](./screenshots/screenshot2.png)
+![screenshot3](./screenshots/screenshot3.png)
+![screenshot4](./screenshots/screenshot4.png)
+</div>
