@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../languages/fa_lang.dart';
 import '../resources/db.dart';
+import './choose_theme_mode_widget.dart';
 
 class SettingsDrawerWidget extends StatefulWidget {
   @override
@@ -46,7 +47,7 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
                 separator(),
                 subtitleSettings(FaLang.changeThemeModeSettings),
                 separator(),
-                chooseThemeMode(),
+                ChooseThemeModeWidget(),
                 separator(),
                 titleSettings(FaLang.aboutTitle),
                 separator(),
@@ -97,43 +98,6 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
       },
       icon: Icon(Icons.folder_rounded),
       label: Text(FaLang.changeDefaultFolderSettings),
-    );
-  }
-
-  Widget chooseThemeMode() {
-    return Column(
-      children: [
-        RadioListTile(
-          value: ThemeMode.system,
-          title: Text(FaLang.system),
-          groupValue: db.themeModeNotifier.value,
-          onChanged: (ThemeMode? value) {
-            db.themeModeNotifier.value = value!;
-            db.prefs.setInt('themeModeInt', 0);
-            setState(() {});
-          },
-        ),
-        RadioListTile(
-          value: ThemeMode.light,
-          title: Text(FaLang.light),
-          groupValue: db.themeModeNotifier.value,
-          onChanged: (ThemeMode? value) {
-            db.themeModeNotifier.value = value!;
-            db.prefs.setInt('themeModeInt', 1);
-            setState(() {});
-          },
-        ),
-        RadioListTile(
-          value: ThemeMode.dark,
-          title: Text(FaLang.dark),
-          groupValue: db.themeModeNotifier.value,
-          onChanged: (ThemeMode? value) {
-            db.themeModeNotifier.value = value!;
-            db.prefs.setInt('themeModeInt', 2);
-            setState(() {});
-          },
-        ),
-      ],
     );
   }
 

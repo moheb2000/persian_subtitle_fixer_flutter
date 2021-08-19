@@ -11,7 +11,7 @@ class Db {
     final int? themeModeInt = prefs.getInt('themeModeInt');
     if (themeModeInt == 1) {
       themeModeNotifier.value = ThemeMode.light;
-    } else {
+    } else if (themeModeInt == 2) {
       themeModeNotifier.value = ThemeMode.dark;
     }
   }
