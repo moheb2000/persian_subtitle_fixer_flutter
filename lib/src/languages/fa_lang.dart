@@ -19,6 +19,13 @@ class FaLang {
   static const settingsTitle = 'تنظیمات';
   static const changeDefaultFolderSettings = 'تغییر پوشه پیشفرض';
   static const aboutTitle = 'درباره';
+  static const aboutDeveloper = 'توسعه دهنده: محمد ابراهیمی';
+  static const aboutVersion = 'نسخه: ۰ . ۱ . ۰';
+  static const aboutLicense = 'تحت مجوز: test';
   static const fixed = 'اصلاح شده';
   static const unknownFormat = 'فرمت ناشناخته';
+  static const githubText = 'گیت هاب';
+  static const githubLink = 'https://github.com/moheb2000/persian_subtitle_fixer_flutter';
+  static const bugReportText = 'گزارش مشکل';
+  static const bugReportLink = 'mailto:moh.ebrahimi2000@gmail.com?subject=گزارش%20مشکل:%20اصلاح%20زیرنویس%20پارسی';
 }

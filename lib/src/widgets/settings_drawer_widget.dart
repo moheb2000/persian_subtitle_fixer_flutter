@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:easy_folder_picker/FolderPicker.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../languages/fa_lang.dart';
 import '../resources/db.dart';
@@ -90,13 +91,42 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
   }
 
   Widget about() {
-    return Container(
-      alignment: Alignment.topRight,
-      child: Column(
-        children: [
-          Text('توسعه دهنده: محمد ابراهیمی'),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          FaLang.aboutDeveloper,
+        ),
+        separator8(),
+        Text(
+          FaLang.aboutVersion,
+        ),
+        separator8(),
+        Text(
+          FaLang.aboutLicense,
+        ),
+        separator8(),
+        Row(
+          children: [
+            Expanded(
+              child: TextButton(
+                onPressed: () {
+                  launchURL(FaLang.githubLink);
+                },
+                child: Text(FaLang.githubText),
+              ),
+            ),
+            Expanded(
+              child: TextButton(
+                onPressed: () {
+                  launchURL(FaLang.bugReportLink);
+                },
+                child: Text(FaLang.bugReportText),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -105,4 +135,13 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
       height: 16,
     );
   }
+
+  Widget separator8() {
+    return SizedBox(
+      height: 8,
+    );
+  }
+
+  void launchURL(String url) async =>
+      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 }
