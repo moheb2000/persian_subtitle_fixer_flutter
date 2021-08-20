@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:archive/archive.dart';
 
 import './windows1256_persian.dart';
+import '../resources/db.dart';
 
 class Logic {
   int fixedCount = 0;
@@ -15,7 +15,6 @@ class Logic {
   Future<int> fixSubtitleFile(List<PlatformFile> files) async {
     fixedCount = 0;
     ignoredCount = 0;
-    SharedPreferences pres = await SharedPreferences.getInstance();
     for (var file in files) {
       if (supportedExtensions.contains(file.extension)) {
         final List<int> firstFile = await File(file.path!).readAsBytes();
@@ -26,7 +25,7 @@ class Logic {
           fixedString = Windows1256PersianCodec().decode(firstFile);
         }
         final lestFile =
-            await File('${pres.getString('subtitlePath')}/[Fixed]${file.name}')
+            await File('${db.defaultDirectoryPath}/[Fixed]${file.name}')
                 .create(recursive: true);
         lestFile.writeAsString(fixedString);
         fixedCount++;
@@ -41,7 +40,6 @@ class Logic {
   Future<int> fixSubtitleZip(List<PlatformFile> zips) async {
     fixedCount = 0;
     ignoredCount = 0;
-    SharedPreferences pres = await SharedPreferences.getInstance();
     for (var zip in zips) {
       final String zipName = zip.name.split('.').first;
       final List<int> zipBytes = await File(zip.path!).readAsBytes();
@@ -57,7 +55,7 @@ class Logic {
               fixedString = Windows1256PersianCodec().decode(data);
             }
             final lestFile =
-            await File('${pres.getString('subtitlePath')}/$zipName/[Fixed]${file.name}')
+            await File('${db.defaultDirectoryPath}/$zipName/[Fixed]${file.name}')
                 .create(recursive: true);
             lestFile.writeAsString(fixedString);
             fixedCount++;
