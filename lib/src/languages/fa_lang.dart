@@ -12,6 +12,7 @@ class FaLang {
   static const chooseFolderButton = 'انتخاب پوشه پیشفرض';
   static const mainScreenTitle = 'اصلاح زیرنویس پارسی';
   static const chooseFileButton = 'انتخاب فایل زیرنویس';
+  static const chooseZipButton = 'انتخاب فایل زیپ';
   static const fixButton = 'اصلاح زیرنویس';
   static const multipleFileChooseHint = 'امکان انتخاب چند فایل با هم وجود داره. اگه چند تا زیرنویس داری همرو با هم انتخاب کن.';
   static const settingsTitle = 'تنظیمات';
@@ -30,4 +31,6 @@ class FaLang {
   static const githubLink = 'https://github.com/moheb2000/persian_subtitle_fixer_flutter';
   static const bugReportText = 'گزارش مشکل';
   static const bugReportLink = 'mailto:moh.ebrahimi2000@gmail.com?subject=گزارش%20مشکل:%20اصلاح%20زیرنویس%20پارسی';
+  static const tabFile = 'فایل زیرنویس';
+  static const tabZip = 'فایل زیپ';
 }
