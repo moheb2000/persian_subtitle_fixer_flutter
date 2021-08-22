@@ -16,7 +16,7 @@ class SettingsDrawerWidget extends StatefulWidget {
 class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
   @override
   void initState() {
-    db.themeModeNotifier.value = db.themeModeNotifier.value;
+    db.themeModeInt = db.themeModeInt;
     super.initState();
   }
 

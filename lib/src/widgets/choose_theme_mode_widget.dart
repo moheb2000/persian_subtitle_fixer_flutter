@@ -14,32 +14,29 @@ class _ChooseThemeModeWidgetState extends State<ChooseThemeModeWidget> {
     return Column(
       children: [
         RadioListTile(
-          value: ThemeMode.system,
+          value: 0,
           title: Text(FaLang.system),
-          groupValue: db.themeModeNotifier.value,
-          onChanged: (ThemeMode? value) {
-            db.themeModeNotifier.value = value!;
-            db.prefs.setInt('themeModeInt', 0);
+          groupValue: db.themeModeInt,
+          onChanged: (int? value) {
+            db.changeThemeMode(value);
             setState(() {});
           },
         ),
         RadioListTile(
-          value: ThemeMode.light,
+          value: 1,
           title: Text(FaLang.light),
-          groupValue: db.themeModeNotifier.value,
-          onChanged: (ThemeMode? value) {
-            db.themeModeNotifier.value = value!;
-            db.prefs.setInt('themeModeInt', 1);
+          groupValue: db.themeModeInt,
+          onChanged: (int? value) {
+            db.changeThemeMode(value);
             setState(() {});
           },
         ),
         RadioListTile(
-          value: ThemeMode.dark,
+          value: 2,
           title: Text(FaLang.dark),
-          groupValue: db.themeModeNotifier.value,
-          onChanged: (ThemeMode? value) {
-            db.themeModeNotifier.value = value!;
-            db.prefs.setInt('themeModeInt', 2);
+          groupValue: db.themeModeInt,
+          onChanged: (int? value) {
+            db.changeThemeMode(value);
             setState(() {});
           },
         ),
