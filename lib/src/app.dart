@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:persian_fonts/persian_fonts.dart';
+import 'package:get/get.dart';
 import './screens/intro_screen.dart';
 import './screens/main_screen.dart';
 import './resources/db.dart';
@@ -14,7 +15,7 @@ class App extends StatelessWidget {
         return ValueListenableBuilder(
           valueListenable: db.themeModeNotifier,
           builder: (_, ThemeMode themeMode, __) {
-            return MaterialApp(
+            return GetMaterialApp(
               title: 'اصلاح زیرنویس پارسی',
 
               // Theme config

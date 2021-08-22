@@ -41,6 +41,7 @@ dependencies:
   flutter_native_splash: ^1.2.1
   url_launcher: ^6.0.9
   archive: ^3.1.2
+  get: ^4.3.8
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:easy_folder_picker/FolderPicker.dart';
+import 'package:get/get.dart';
 
 import '../languages/fa_lang.dart';
 import './main_screen.dart';
@@ -98,8 +99,7 @@ class _IntroScreenState extends State<IntroScreen> {
       isTopSafeArea: true,
       onDone: () {
         if (db.defaultDirectoryPath != null) {
-          Navigator.of(context).pushReplacement(new MaterialPageRoute(
-              builder: (BuildContext context) => MainScreen()));
+          Get.offAll(MainScreen());
         } else {
           showDialog<String>(
             context: context,
@@ -107,7 +107,7 @@ class _IntroScreenState extends State<IntroScreen> {
               content: const Text(FaLang.introAlertMessage),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.pop(context, null),
+                  onPressed: () => Get.back(),
                   child: const Text(FaLang.introAlertButton),
                 ),
               ],
