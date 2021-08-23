@@ -28,7 +28,7 @@ class Languages extends Translations {
       'dark': 'تیره',
       'aboutTitle': 'درباره',
       'aboutDeveloper': 'توسعه دهنده: محمد ابراهیمی',
-      'aboutVersion': 'نسخه: ۰ . ۱ . ۰',
+      'aboutVersion': 'نگارش: ۰ . ۱ . ۰',
       'aboutLicense': 'تحت مجوز: Mozilla Public License v2',
       'fixed': 'اصلاح شده',
       'unknownFormat': 'فرمت ناشناخته',
