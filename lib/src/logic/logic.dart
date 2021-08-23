@@ -11,6 +11,7 @@ import '../resources/db.dart';
 class Logic extends GetxController {
   int fixedCount = 0;
   int ignoredCount = 0;
+  int totalCount = 0;
   List<String> supportedExtensions = ['ass', 'srt'];
 
   static Logic get to => Get.find();
@@ -18,7 +19,7 @@ class Logic extends GetxController {
   Future<int> fixSubtitleFile(List<PlatformFile> files) async {
     fixedCount = 0;
     ignoredCount = 0;
-    print(fixedCount);
+    totalCount = files.length;
     update();
     for (var file in files) {
       if (supportedExtensions.contains(file.extension)) {
@@ -37,7 +38,6 @@ class Logic extends GetxController {
       } else {
         ignoredCount++;
       }
-      print(fixedCount);
       update();
     }
 
@@ -47,7 +47,16 @@ class Logic extends GetxController {
   Future<int> fixSubtitleZip(List<PlatformFile> zips) async {
     fixedCount = 0;
     ignoredCount = 0;
-    print(fixedCount);
+    totalCount = 0;
+    for (var zip in zips) {
+      final List<int> zipBytes = await File(zip.path!).readAsBytes();
+      final Archive archive = ZipDecoder().decodeBytes(zipBytes);
+      for (var file in archive) {
+        if(file.isFile) {
+          totalCount++;
+        }
+      }
+    }
     update();
     for (var zip in zips) {
       final String zipName = zip.name.split('.').first;
@@ -72,7 +81,6 @@ class Logic extends GetxController {
             ignoredCount++;
           }
         }
-        print(fixedCount);
         update();
       }
     }
