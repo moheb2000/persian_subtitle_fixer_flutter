@@ -12,11 +12,15 @@ class Logic extends GetxController {
   int fixedCount = 0;
   int ignoredCount = 0;
   int totalCount = 0;
+  bool inactiveButtons = false;
   List<String> supportedExtensions = ['ass', 'srt'];
+  List<PlatformFile>? filesList;
+  List<PlatformFile>? zipsList;
 
   static Logic get to => Get.find();
 
-  Future<int> fixSubtitleFile(List<PlatformFile> files) async {
+  Future<void> fixSubtitleFile(List<PlatformFile> files) async {
+    inactiveButtons = true;
     fixedCount = 0;
     ignoredCount = 0;
     totalCount = files.length;
@@ -40,11 +44,13 @@ class Logic extends GetxController {
       }
       update();
     }
-
-    return 0;
+    inactiveButtons = false;
+    filesList = null;
+    update();
   }
 
-  Future<int> fixSubtitleZip(List<PlatformFile> zips) async {
+  Future<void> fixSubtitleZip(List<PlatformFile> zips) async {
+    inactiveButtons = true;
     fixedCount = 0;
     ignoredCount = 0;
     totalCount = 0;
@@ -84,6 +90,18 @@ class Logic extends GetxController {
         update();
       }
     }
-    return 0;
+    inactiveButtons = false;
+    zipsList = null;
+    update();
+  }
+
+  void updateFiles(List<PlatformFile> files) {
+    filesList = files;
+    update();
+  }
+
+  void updateZips(List<PlatformFile> files) {
+    zipsList = files;
+    update();
   }
 }

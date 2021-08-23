@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../languages/fa_lang.dart';
 import '../logic/logic.dart';
 
-class ChooseFileWidget extends StatefulWidget {
-  @override
-  _ChooseFileWidgetState createState() => _ChooseFileWidgetState();
-}
-
-class _ChooseFileWidgetState extends State<ChooseFileWidget> {
-  List<PlatformFile>? files;
-
+class ChooseFileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -37,27 +31,30 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> {
   Widget chooseFileButton() {
     return Container(
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () async {
-          final FilePickerResult? chosenFiles = await FilePicker.platform.pickFiles(
-            allowMultiple: true,
-            type: FileType.any,
-          );
-          if (chosenFiles != null) {
-            files = chosenFiles.files;
-            setState(() {});
-          }
-        },
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Text(
-            FaLang.chooseFileButton,
-            style: TextStyle(
-              fontWeight: FontWeight.normal,
-              fontSize: 18,
+      child: GetBuilder<Logic>(
+        builder: (_) {
+          return ElevatedButton(
+            onPressed: _.inactiveButtons ? null : () async {
+              final FilePickerResult? chosenFiles = await FilePicker.platform.pickFiles(
+                allowMultiple: true,
+                type: FileType.any,
+              );
+              if (chosenFiles != null) {
+                Logic.to.updateFiles(chosenFiles.files);
+              }
+            },
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                FaLang.chooseFileButton,
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18,
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -65,29 +62,30 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> {
   Widget fixButton() {
     return Container(
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: files == null
-            ? null
-            : () async {
-                final PermissionStatus status = await Permission.storage.status;
-                if (status.isDenied) {
-                  Permission.storage.request();
-                }
-                Logic.to.fixSubtitleFile(files!).then((_) {
-                  files = null;
-                  setState(() {});
-                });
-              },
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Text(
-            FaLang.fixButton,
-            style: TextStyle(
-              fontWeight: FontWeight.normal,
-              fontSize: 18,
+      child: GetBuilder<Logic>(
+        builder: (_) {
+          return ElevatedButton(
+            onPressed: _.filesList == null || _.inactiveButtons
+                ? null
+                : () async {
+              final PermissionStatus status = await Permission.storage.status;
+              if (status.isDenied) {
+                Permission.storage.request();
+              }
+              Logic.to.fixSubtitleFile(_.filesList!);
+            },
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                FaLang.fixButton,
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18,
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -99,22 +97,26 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> {
   }
 
   Widget listOfFiles() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: files != null ? files!.length : 1,
-      itemBuilder: (context, int index) {
-        if (files == null) {
-          return Text('');
-        } else {
-          return Text(
-            files![index].name,
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-              color: Colors.grey,
-            ),
+    return GetBuilder<Logic>(
+        builder: (_) {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: _.filesList != null ? _.filesList!.length : 1,
+            itemBuilder: (context, int index) {
+              if (_.filesList == null) {
+                return Text('');
+              } else {
+                return Text(
+                  _.filesList![index].name,
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                );
+              }
+            },
           );
-        }
-      },
+        },
     );
   }
 

@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../languages/fa_lang.dart';
 import '../logic/logic.dart';
 
-class ChooseZipWidget extends StatefulWidget {
-  @override
-  _ChooseZipWidgetState createState() => _ChooseZipWidgetState();
-}
-
-class _ChooseZipWidgetState extends State<ChooseZipWidget> {
-  List<PlatformFile>? zips;
-
+class ChooseZipWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -37,28 +31,31 @@ class _ChooseZipWidgetState extends State<ChooseZipWidget> {
   Widget chooseZipButton() {
     return Container(
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () async {
-          final FilePickerResult? chosenZips = await FilePicker.platform.pickFiles(
-            allowMultiple: true,
-            type: FileType.custom,
-            allowedExtensions: ['zip', 'tar'],
-          );
-          if (chosenZips != null) {
-            zips = chosenZips.files;
-            setState(() {});
-          }
-        },
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Text(
-            FaLang.chooseZipButton,
-            style: TextStyle(
-              fontWeight: FontWeight.normal,
-              fontSize: 18,
+      child: GetBuilder<Logic>(
+        builder: (_) {
+          return ElevatedButton(
+            onPressed: _.inactiveButtons ? null : () async {
+              final FilePickerResult? chosenZips = await FilePicker.platform.pickFiles(
+                allowMultiple: true,
+                type: FileType.custom,
+                allowedExtensions: ['zip', 'tar'],
+              );
+              if (chosenZips != null) {
+                Logic.to.updateZips(chosenZips.files);
+              }
+            },
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                FaLang.chooseZipButton,
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18,
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -66,29 +63,30 @@ class _ChooseZipWidgetState extends State<ChooseZipWidget> {
   Widget fixButton() {
     return Container(
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: zips == null
-            ? null
-            : () async {
-          final PermissionStatus status = await Permission.storage.status;
-          if (status.isDenied) {
-            Permission.storage.request();
-          }
-          Logic.to.fixSubtitleZip(zips!).then((_) {
-            zips = null;
-            setState(() {});
-          });
-        },
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Text(
-            FaLang.fixButton,
-            style: TextStyle(
-              fontWeight: FontWeight.normal,
-              fontSize: 18,
+      child: GetBuilder<Logic>(
+        builder: (_) {
+          return ElevatedButton(
+            onPressed: _.zipsList == null || _.inactiveButtons
+                ? null
+                : () async {
+              final PermissionStatus status = await Permission.storage.status;
+              if (status.isDenied) {
+                Permission.storage.request();
+              }
+              Logic.to.fixSubtitleZip(_.zipsList!);
+            },
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                FaLang.fixButton,
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18,
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -100,21 +98,25 @@ class _ChooseZipWidgetState extends State<ChooseZipWidget> {
   }
 
   Widget listOfZips() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: zips != null ? zips!.length : 1,
-      itemBuilder: (context, int index) {
-        if (zips == null) {
-          return Text('');
-        } else {
-          return Text(
-            zips![index].name,
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-              color: Colors.grey,
-            ),
-          );
-        }
+    return GetBuilder<Logic>(
+      builder: (_) {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: _.zipsList != null ? _.zipsList!.length : 1,
+          itemBuilder: (context, int index) {
+            if (_.zipsList == null) {
+              return Text('');
+            } else {
+              return Text(
+                _.zipsList![index].name,
+                textDirection: TextDirection.ltr,
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              );
+            }
+          },
+        );
       },
     );
   }
