@@ -3,44 +3,40 @@ import 'package:get/get.dart';
 
 import '../resources/db.dart';
 
-class ChooseThemeModeWidget extends StatefulWidget {
-  @override
-  _ChooseThemeModeWidgetState createState() => _ChooseThemeModeWidgetState();
-}
-
-class _ChooseThemeModeWidgetState extends State<ChooseThemeModeWidget> {
+class ChooseThemeModeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        RadioListTile(
-          value: 0,
-          title: Text('system'.tr),
-          groupValue: db.themeModeInt,
-          onChanged: (int? value) {
-            db.changeThemeMode(value);
-            setState(() {});
-          },
-        ),
-        RadioListTile(
-          value: 1,
-          title: Text('light'.tr),
-          groupValue: db.themeModeInt,
-          onChanged: (int? value) {
-            db.changeThemeMode(value);
-            setState(() {});
-          },
-        ),
-        RadioListTile(
-          value: 2,
-          title: Text('dark'.tr),
-          groupValue: db.themeModeInt,
-          onChanged: (int? value) {
-            db.changeThemeMode(value);
-            setState(() {});
-          },
-        ),
-      ],
+    return GetBuilder<Db>(
+      builder: (_) {
+        return Column(
+          children: [
+            RadioListTile(
+              value: 0,
+              title: Text('system'.tr),
+              groupValue: Db.to.themeModeInt,
+              onChanged: (int? value) {
+                Db.to.changeThemeMode(value);
+              },
+            ),
+            RadioListTile(
+              value: 1,
+              title: Text('light'.tr),
+              groupValue: Db.to.themeModeInt,
+              onChanged: (int? value) {
+                Db.to.changeThemeMode(value);
+              },
+            ),
+            RadioListTile(
+              value: 2,
+              title: Text('dark'.tr),
+              groupValue: Db.to.themeModeInt,
+              onChanged: (int? value) {
+                Db.to.changeThemeMode(value);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

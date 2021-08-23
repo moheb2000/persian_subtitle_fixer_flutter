@@ -4,12 +4,9 @@ import 'package:get/get.dart';
 import './screens/intro_screen.dart';
 import './screens/main_screen.dart';
 import './resources/db.dart';
-import './logic/logic.dart';
 import './languages/languages.dart';
 
 class App extends StatelessWidget {
-  final logic = Get.put(Logic());
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -31,7 +28,7 @@ class App extends StatelessWidget {
       fallbackLocale: Locale('fa', 'IR'),
 
       // Home
-      home: db.defaultDirectoryPath == null ? IntroScreen() : MainScreen(),
+      home: Db.to.defaultDirectoryPath == null ? IntroScreen() : MainScreen(),
     );
   }
 }

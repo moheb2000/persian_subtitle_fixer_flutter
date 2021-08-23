@@ -8,18 +8,7 @@ import 'package:get/get.dart';
 import '../resources/db.dart';
 import './choose_theme_mode_widget.dart';
 
-class SettingsDrawerWidget extends StatefulWidget {
-  @override
-  _SettingsDrawerWidgetState createState() => _SettingsDrawerWidgetState();
-}
-
-class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
-  @override
-  void initState() {
-    db.themeModeInt = db.themeModeInt;
-    super.initState();
-  }
-
+class SettingsDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,16 +23,20 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
                 separator(),
                 subtitleSettings('changeDefaultFolderSettings'.tr),
                 separator(),
-                TextField(
-                  enabled: false,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: db.defaultDirectoryPath ?? '',
-                    hintTextDirection: TextDirection.ltr,
-                  ),
+                GetBuilder<Db>(
+                  builder: (_) {
+                    return TextField(
+                      enabled: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: _.defaultDirectoryPath ?? '',
+                        hintTextDirection: TextDirection.ltr,
+                      ),
+                    );
+                  },
                 ),
                 separator(),
-                chooseFolderSettings(),
+                chooseFolderSettings(context),
                 separator(),
                 subtitleSettings('changeThemeModeSettings'.tr),
                 separator(),
@@ -78,22 +71,21 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
     );
   }
 
-  Widget chooseFolderSettings() {
+  Widget chooseFolderSettings(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () async {
         final Directory? chosenDirectory = await FolderPicker.pick(
             allowFolderCreation: true,
             context: context,
-            rootDirectory: db.defaultDirectoryPath != null
-                ? Directory(db.defaultDirectoryPath!)
+            rootDirectory: Db.to.defaultDirectoryPath != null
+                ? Directory(Db.to.defaultDirectoryPath!)
                 : Directory(FolderPicker.ROOTPATH),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))));
 
         if (chosenDirectory != null) {
-          db.prefs.setString('subtitlePath', chosenDirectory.path);
-          db.defaultDirectoryPath = chosenDirectory.path;
-          setState(() {});
+          Db.to.prefs.setString('subtitlePath', chosenDirectory.path);
+          Db.to.updateDefaultPath(chosenDirectory.path);
         }
       },
       icon: Icon(Icons.folder_rounded),

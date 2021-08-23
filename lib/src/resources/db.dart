@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
-class Db {
+class Db extends GetxController {
   String? defaultDirectoryPath;
   late SharedPreferences prefs;
   late int? themeModeInt;
 
+  static Db get to => Get.find();
+
   Future<void> syncDb() async {
     prefs = await SharedPreferences.getInstance();
-    defaultDirectoryPath = prefs.getString('subtitlePath');
+    updateDefaultPath(prefs.getString('subtitlePath'));
     themeModeInt = prefs.getInt('themeModeInt');
     changeThemeMode(themeModeInt);
   }
@@ -28,7 +30,11 @@ class Db {
       themeModeInt = 0;
       prefs.setInt('themeModeInt', 0);
     }
+    update();
+  }
+
+  void updateDefaultPath(String? path) {
+    defaultDirectoryPath = path;
+    update();
   }
 }
-
-Db db = new Db();

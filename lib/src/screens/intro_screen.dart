@@ -71,20 +71,23 @@ class _IntroScreenState extends State<IntroScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(10))));
 
                 if (chosenDirectory != null) {
-                  db.prefs.setString('subtitlePath', chosenDirectory.path);
-                  db.defaultDirectoryPath = chosenDirectory.path;
-                  setState(() {});
+                  Db.to.prefs.setString('subtitlePath', chosenDirectory.path);
+                  Db.to.updateDefaultPath(chosenDirectory.path);
                 }
               },
               child: Text('chooseFolderButton'.tr),
             ),
-            Text(
-              db.defaultDirectoryPath ?? '',
-              textDirection: TextDirection.ltr,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 18,
-              ),
+            GetBuilder<Db>(
+              builder: (_) {
+                return Text(
+                  _.defaultDirectoryPath ?? '',
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -97,7 +100,7 @@ class _IntroScreenState extends State<IntroScreen> {
       next: Text('next'.tr),
       isTopSafeArea: true,
       onDone: () {
-        if (db.defaultDirectoryPath != null) {
+        if (Db.to.defaultDirectoryPath != null) {
           Get.offAll(MainScreen());
         } else {
           showDialog<String>(

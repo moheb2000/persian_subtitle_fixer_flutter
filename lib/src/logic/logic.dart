@@ -35,7 +35,7 @@ class Logic extends GetxController {
           fixedString = Windows1256PersianCodec().decode(firstFile);
         }
         final lestFile =
-            await File('${db.defaultDirectoryPath}/[Fixed]${file.name}')
+            await File('${Db.to.defaultDirectoryPath}/[Fixed]${file.name}')
                 .create(recursive: true);
         lestFile.writeAsString(fixedString);
         fixedCount++;
@@ -79,7 +79,7 @@ class Logic extends GetxController {
               fixedString = Windows1256PersianCodec().decode(data);
             }
             final lestFile =
-            await File('${db.defaultDirectoryPath}/$zipName/[Fixed]${file.name}')
+            await File('${Db.to.defaultDirectoryPath}/$zipName/[Fixed]${file.name}')
                 .create(recursive: true);
             lestFile.writeAsString(fixedString);
             fixedCount++;

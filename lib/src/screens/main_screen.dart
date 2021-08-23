@@ -4,8 +4,11 @@ import '../widgets/choose_file_widget.dart';
 import '../widgets/settings_drawer_widget.dart';
 import '../widgets/choose_zip_widget.dart';
 import '../widgets/count_widget.dart';
+import '../logic/logic.dart';
 
 class MainScreen extends StatelessWidget {
+  final logic = Get.put(Logic());
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
