@@ -68,9 +68,9 @@ class ChooseZipWidget extends StatelessWidget {
             onPressed: _.zipsList == null || _.inactiveButtons
                 ? null
                 : () async {
-              final PermissionStatus status = await Permission.storage.status;
+              final PermissionStatus status = await Permission.manageExternalStorage.status;
               if (status.isDenied) {
-                Permission.storage.request();
+                await Permission.manageExternalStorage.request();
               }
               Logic.to.fixSubtitleZip(_.zipsList!);
             },

@@ -1,8 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:easy_folder_picker/FolderPicker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 
 import './main_screen.dart';
@@ -63,16 +61,11 @@ class _IntroScreenState extends State<IntroScreen> {
           children: [
             ElevatedButton(
               onPressed: () async {
-                final Directory? chosenDirectory = await FolderPicker.pick(
-                    allowFolderCreation: true,
-                    context: context,
-                    rootDirectory: Directory(FolderPicker.ROOTPATH),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))));
+                final String? chosenDirectory = await FilePicker.platform.getDirectoryPath();
 
                 if (chosenDirectory != null) {
-                  Db.to.prefs.setString('subtitlePath', chosenDirectory.path);
-                  Db.to.updateDefaultPath(chosenDirectory.path);
+                  Db.to.prefs.setString('subtitlePath', chosenDirectory);
+                  Db.to.updateDefaultPath(chosenDirectory);
                 }
               },
               child: Text('chooseFolderButton'.tr),

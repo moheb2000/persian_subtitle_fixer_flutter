@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:easy_folder_picker/FolderPicker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
@@ -74,18 +72,11 @@ class SettingsDrawerWidget extends StatelessWidget {
   Widget chooseFolderSettings(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () async {
-        final Directory? chosenDirectory = await FolderPicker.pick(
-            allowFolderCreation: true,
-            context: context,
-            rootDirectory: Db.to.defaultDirectoryPath != null
-                ? Directory(Db.to.defaultDirectoryPath!)
-                : Directory(FolderPicker.ROOTPATH),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10))));
+        final String? chosenDirectory = await FilePicker.platform.getDirectoryPath();
 
         if (chosenDirectory != null) {
-          Db.to.prefs.setString('subtitlePath', chosenDirectory.path);
-          Db.to.updateDefaultPath(chosenDirectory.path);
+          Db.to.prefs.setString('subtitlePath', chosenDirectory);
+          Db.to.updateDefaultPath(chosenDirectory);
         }
       },
       icon: Icon(Icons.folder_rounded),

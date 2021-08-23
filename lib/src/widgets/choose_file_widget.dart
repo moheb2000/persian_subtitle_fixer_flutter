@@ -67,9 +67,9 @@ class ChooseFileWidget extends StatelessWidget {
             onPressed: _.filesList == null || _.inactiveButtons
                 ? null
                 : () async {
-              final PermissionStatus status = await Permission.storage.status;
+              final PermissionStatus status = await Permission.manageExternalStorage.status;
               if (status.isDenied) {
-                Permission.storage.request();
+                await Permission.manageExternalStorage.request();
               }
               Logic.to.fixSubtitleFile(_.filesList!);
             },
