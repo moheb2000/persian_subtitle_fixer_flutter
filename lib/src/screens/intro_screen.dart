@@ -24,6 +24,7 @@ class _IntroScreenState extends State<IntroScreen> {
           height: 180,
         ),
       ),
+      /*
       PageViewModel(
         title: 'introTwoTitle'.tr,
         body: 'introTwoBody'.tr,
@@ -32,6 +33,7 @@ class _IntroScreenState extends State<IntroScreen> {
           height: 180,
         ),
       ),
+      */
       PageViewModel(
         title: 'changeThemeModeSettings'.tr,
         bodyWidget: Column(
