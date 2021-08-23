@@ -3,6 +3,7 @@ import '../widgets/choose_file_widget.dart';
 import '../languages/fa_lang.dart';
 import '../widgets/settings_drawer_widget.dart';
 import '../widgets/choose_zip_widget.dart';
+import '../widgets/count_widget.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -42,6 +43,9 @@ class MainScreen extends StatelessWidget {
           ],
         ),
         endDrawer: SettingsDrawerWidget(),
+        bottomNavigationBar: BottomAppBar(
+          child: CountWidget(),
+        ),
       ),
     );
   }

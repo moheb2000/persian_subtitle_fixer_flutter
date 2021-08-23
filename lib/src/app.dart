@@ -5,8 +5,11 @@ import 'package:get/get.dart';
 import './screens/intro_screen.dart';
 import './screens/main_screen.dart';
 import './resources/db.dart';
+import './logic/logic.dart';
 
 class App extends StatelessWidget {
+  final logic = Get.put(Logic());
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

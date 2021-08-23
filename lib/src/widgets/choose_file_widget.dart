@@ -11,7 +11,7 @@ class ChooseFileWidget extends StatefulWidget {
   _ChooseFileWidgetState createState() => _ChooseFileWidgetState();
 }
 
-class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
+class _ChooseFileWidgetState extends State<ChooseFileWidget> {
   List<PlatformFile>? files;
 
   @override
@@ -26,8 +26,6 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
             chooseFileButton(),
             separator(),
             fixButton(),
-            separator(),
-            showResult(fixedCount, ignoredCount),
             separator(),
             listOfFiles(),
           ],
@@ -75,7 +73,7 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
                 if (status.isDenied) {
                   Permission.storage.request();
                 }
-                fixSubtitleFile(files!).then((_) {
+                Logic.to.fixSubtitleFile(files!).then((_) {
                   files = null;
                   setState(() {});
                 });
@@ -117,29 +115,6 @@ class _ChooseFileWidgetState extends State<ChooseFileWidget> with Logic {
           );
         }
       },
-    );
-  }
-
-  Widget showResult(int fixed, int ignored) {
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            children: [
-              Text(FaLang.fixed),
-              Text('$fixed'),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              Text(FaLang.unknownFormat),
-              Text('$ignored'),
-            ],
-          ),
-        ),
-      ],
     );
   }
 

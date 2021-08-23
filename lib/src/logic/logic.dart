@@ -3,18 +3,23 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:archive/archive.dart';
+import 'package:get/get.dart';
 
 import './windows1256_persian.dart';
 import '../resources/db.dart';
 
-class Logic {
+class Logic extends GetxController {
   int fixedCount = 0;
   int ignoredCount = 0;
   List<String> supportedExtensions = ['ass', 'srt'];
 
+  static Logic get to => Get.find();
+
   Future<int> fixSubtitleFile(List<PlatformFile> files) async {
     fixedCount = 0;
     ignoredCount = 0;
+    print(fixedCount);
+    update();
     for (var file in files) {
       if (supportedExtensions.contains(file.extension)) {
         final List<int> firstFile = await File(file.path!).readAsBytes();
@@ -32,6 +37,8 @@ class Logic {
       } else {
         ignoredCount++;
       }
+      print(fixedCount);
+      update();
     }
 
     return 0;
@@ -40,6 +47,8 @@ class Logic {
   Future<int> fixSubtitleZip(List<PlatformFile> zips) async {
     fixedCount = 0;
     ignoredCount = 0;
+    print(fixedCount);
+    update();
     for (var zip in zips) {
       final String zipName = zip.name.split('.').first;
       final List<int> zipBytes = await File(zip.path!).readAsBytes();
@@ -63,6 +72,8 @@ class Logic {
             ignoredCount++;
           }
         }
+        print(fixedCount);
+        update();
       }
     }
     return 0;

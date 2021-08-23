@@ -11,7 +11,7 @@ class ChooseZipWidget extends StatefulWidget {
   _ChooseZipWidgetState createState() => _ChooseZipWidgetState();
 }
 
-class _ChooseZipWidgetState extends State<ChooseZipWidget> with Logic {
+class _ChooseZipWidgetState extends State<ChooseZipWidget> {
   List<PlatformFile>? zips;
 
   @override
@@ -26,8 +26,6 @@ class _ChooseZipWidgetState extends State<ChooseZipWidget> with Logic {
             chooseZipButton(),
             separator(),
             fixButton(),
-            separator(),
-            showResult(fixedCount, ignoredCount),
             separator(),
             listOfZips(),
           ],
@@ -76,7 +74,7 @@ class _ChooseZipWidgetState extends State<ChooseZipWidget> with Logic {
           if (status.isDenied) {
             Permission.storage.request();
           }
-          fixSubtitleZip(zips!).then((_) {
+          Logic.to.fixSubtitleZip(zips!).then((_) {
             zips = null;
             setState(() {});
           });
@@ -118,29 +116,6 @@ class _ChooseZipWidgetState extends State<ChooseZipWidget> with Logic {
           );
         }
       },
-    );
-  }
-
-  Widget showResult(int fixed, int ignored) {
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            children: [
-              Text(FaLang.fixed),
-              Text('$fixed'),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              Text(FaLang.unknownFormat),
-              Text('$ignored'),
-            ],
-          ),
-        ),
-      ],
     );
   }
 
