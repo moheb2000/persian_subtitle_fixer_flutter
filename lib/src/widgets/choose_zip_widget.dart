@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../languages/fa_lang.dart';
 import '../logic/logic.dart';
 
 class ChooseZipWidget extends StatelessWidget {
@@ -47,7 +46,7 @@ class ChooseZipWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                FaLang.chooseZipButton,
+                'chooseZipButton'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 18,
@@ -78,7 +77,7 @@ class ChooseZipWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                FaLang.fixButton,
+                'fixButton'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 18,
@@ -93,7 +92,7 @@ class ChooseZipWidget extends StatelessWidget {
 
   Widget multipleZipChooseHint() {
     return Text(
-      FaLang.multipleFileChooseHint,
+      'multipleFileChooseHint'.tr,
     );
   }
 

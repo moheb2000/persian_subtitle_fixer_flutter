@@ -5,7 +5,6 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:easy_folder_picker/FolderPicker.dart';
 import 'package:get/get.dart';
 
-import '../languages/fa_lang.dart';
 import './main_screen.dart';
 import '../resources/db.dart';
 import '../widgets/choose_theme_mode_widget.dart';
@@ -20,27 +19,27 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     final List<PageViewModel> listPagesViewModel = [
       PageViewModel(
-        title: FaLang.introOneTitle,
-        body: FaLang.introOneBody,
+        title: 'introOneTitle'.tr,
+        body: 'introOneBody'.tr,
         image: Image.asset(
           'assets/images/welcome.png',
           height: 180,
         ),
       ),
       PageViewModel(
-        title: FaLang.introTwoTitle,
-        body: FaLang.introTwoBody,
+        title: 'introTwoTitle'.tr,
+        body: 'introTwoBody'.tr,
         image: Image.asset(
           'assets/images/android.png',
           height: 180,
         ),
       ),
       PageViewModel(
-        title: FaLang.changeThemeModeSettings,
+        title: 'changeThemeModeSettings'.tr,
         bodyWidget: Column(
           children: [
             Text(
-              'دوست داری چه رنگی باشم؟',
+              'introThreeTitle'.tr,
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -54,8 +53,8 @@ class _IntroScreenState extends State<IntroScreen> {
         ),
       ),
       PageViewModel(
-        title: FaLang.introFourTitle,
-        body: FaLang.introFourBody,
+        title: 'introFourTitle'.tr,
+        body: 'introFourBody'.tr,
         image: Image.asset(
           'assets/images/folder.png',
           height: 180,
@@ -77,7 +76,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   setState(() {});
                 }
               },
-              child: Text(FaLang.chooseFolderButton),
+              child: Text('chooseFolderButton'.tr),
             ),
             Text(
               db.defaultDirectoryPath ?? '',
@@ -93,9 +92,9 @@ class _IntroScreenState extends State<IntroScreen> {
     ];
     return IntroductionScreen(
       pages: listPagesViewModel,
-      done: const Text(FaLang.done,
+      done: Text('done'.tr,
           style: TextStyle(fontWeight: FontWeight.w600)),
-      next: Text(FaLang.next),
+      next: Text('next'.tr),
       isTopSafeArea: true,
       onDone: () {
         if (db.defaultDirectoryPath != null) {
@@ -104,11 +103,11 @@ class _IntroScreenState extends State<IntroScreen> {
           showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              content: const Text(FaLang.introAlertMessage),
+              content: Text('introAlertMessage'.tr),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Get.back(),
-                  child: const Text(FaLang.introAlertButton),
+                  child: Text('introAlertButton'.tr),
                 ),
               ],
             ),

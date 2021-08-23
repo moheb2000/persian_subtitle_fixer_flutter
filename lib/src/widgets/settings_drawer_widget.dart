@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:easy_folder_picker/FolderPicker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
 
-import '../languages/fa_lang.dart';
 import '../resources/db.dart';
 import './choose_theme_mode_widget.dart';
 
@@ -30,9 +30,9 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
             child: Column(
               children: [
                 separator(),
-                titleSettings(FaLang.settingsTitle),
+                titleSettings('settingsTitle'.tr),
                 separator(),
-                subtitleSettings(FaLang.changeDefaultFolderSettings),
+                subtitleSettings('changeDefaultFolderSettings'.tr),
                 separator(),
                 TextField(
                   enabled: false,
@@ -45,11 +45,11 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
                 separator(),
                 chooseFolderSettings(),
                 separator(),
-                subtitleSettings(FaLang.changeThemeModeSettings),
+                subtitleSettings('changeThemeModeSettings'.tr),
                 separator(),
                 ChooseThemeModeWidget(),
                 separator(),
-                titleSettings(FaLang.aboutTitle),
+                titleSettings('aboutTitle'.tr),
                 separator(),
                 about(),
               ],
@@ -97,7 +97,7 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
         }
       },
       icon: Icon(Icons.folder_rounded),
-      label: Text(FaLang.changeDefaultFolderSettings),
+      label: Text('changeDefaultFolderSettings'.tr),
     );
   }
 
@@ -106,15 +106,15 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          FaLang.aboutDeveloper,
+          'aboutDeveloper'.tr,
         ),
         separator8(),
         Text(
-          FaLang.aboutVersion,
+          'aboutVersion'.tr,
         ),
         separator8(),
         Text(
-          FaLang.aboutLicense,
+          'aboutLicense'.tr,
         ),
         separator8(),
         Row(
@@ -122,17 +122,17 @@ class _SettingsDrawerWidgetState extends State<SettingsDrawerWidget> {
             Expanded(
               child: TextButton(
                 onPressed: () {
-                  launchURL(FaLang.githubLink);
+                  launchURL('githubLink'.tr);
                 },
-                child: Text(FaLang.githubText),
+                child: Text('githubText'.tr),
               ),
             ),
             Expanded(
               child: TextButton(
                 onPressed: () {
-                  launchURL(FaLang.bugReportLink);
+                  launchURL('bugReportLink'.tr);
                 },
-                child: Text(FaLang.bugReportText),
+                child: Text('bugReportText'.tr),
               ),
             ),
           ],

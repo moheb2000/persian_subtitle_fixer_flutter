@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../languages/fa_lang.dart';
 import '../logic/logic.dart';
 
 class CountWidget extends StatelessWidget {
@@ -28,7 +27,7 @@ class CountWidget extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(FaLang.fixed),
+                    Text('fixed'.tr),
                     GetBuilder<Logic>(
                       builder: (_) {
                         return Text('${_.fixedCount}');
@@ -41,7 +40,7 @@ class CountWidget extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(FaLang.unknownFormat),
+                    Text('unknownFormat'.tr),
                     GetBuilder<Logic>(
                       builder: (_) {
                         return Text('${_.ignoredCount}');

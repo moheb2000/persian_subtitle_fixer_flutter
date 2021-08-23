@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../languages/fa_lang.dart';
 import '../resources/db.dart';
 
 class ChooseThemeModeWidget extends StatefulWidget {
@@ -15,7 +15,7 @@ class _ChooseThemeModeWidgetState extends State<ChooseThemeModeWidget> {
       children: [
         RadioListTile(
           value: 0,
-          title: Text(FaLang.system),
+          title: Text('system'.tr),
           groupValue: db.themeModeInt,
           onChanged: (int? value) {
             db.changeThemeMode(value);
@@ -24,7 +24,7 @@ class _ChooseThemeModeWidgetState extends State<ChooseThemeModeWidget> {
         ),
         RadioListTile(
           value: 1,
-          title: Text(FaLang.light),
+          title: Text('light'.tr),
           groupValue: db.themeModeInt,
           onChanged: (int? value) {
             db.changeThemeMode(value);
@@ -33,7 +33,7 @@ class _ChooseThemeModeWidgetState extends State<ChooseThemeModeWidget> {
         ),
         RadioListTile(
           value: 2,
-          title: Text(FaLang.dark),
+          title: Text('dark'.tr),
           groupValue: db.themeModeInt,
           onChanged: (int? value) {
             db.changeThemeMode(value);
