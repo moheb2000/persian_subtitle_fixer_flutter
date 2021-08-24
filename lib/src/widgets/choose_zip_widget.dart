@@ -101,7 +101,7 @@ class ChooseZipWidget extends StatelessWidget {
 
   Widget multipleZipChooseHint() {
     return Text(
-      'multipleFileChooseHint'.tr,
+      'multipleZipChooseHint'.tr,
     );
   }
 

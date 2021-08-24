@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import './main_screen.dart';
 import '../resources/db.dart';
 import '../widgets/choose_theme_mode_widget.dart';
+import '../widgets/choose_locale_widget.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -18,13 +19,22 @@ class _IntroScreenState extends State<IntroScreen> {
     final List<PageViewModel> listPagesViewModel = [
       PageViewModel(
         title: 'introOneTitle'.tr,
-        body: 'introOneBody'.tr,
+        bodyWidget: Column(
+          children: [
+            Text(
+              'introOneBody'.tr,
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            ChooseLocaleWidget(),
+          ],
+        ),
         image: Image.asset(
           'assets/images/welcome.png',
           height: 180,
         ),
       ),
-      /*
       PageViewModel(
         title: 'introTwoTitle'.tr,
         body: 'introTwoBody'.tr,
@@ -33,7 +43,6 @@ class _IntroScreenState extends State<IntroScreen> {
           height: 180,
         ),
       ),
-      */
       PageViewModel(
         title: 'changeThemeModeSettings'.tr,
         bodyWidget: Column(

@@ -6,6 +6,7 @@ class Db extends GetxController {
   String? defaultDirectoryPath;
   late SharedPreferences prefs;
   late int? themeModeInt;
+  late int? localeInt;
 
   static Db get to => Get.find();
 
@@ -13,6 +14,7 @@ class Db extends GetxController {
     prefs = await SharedPreferences.getInstance();
     updateDefaultPath(prefs.getString('subtitlePath'));
     themeModeInt = prefs.getInt('themeModeInt');
+    localeInt = prefs.getInt('localeInt');
     changeThemeMode(themeModeInt);
   }
 
@@ -31,6 +33,29 @@ class Db extends GetxController {
       prefs.setInt('themeModeInt', 0);
     }
     update();
+  }
+
+  void changeAppLocale(int? locale) {
+    if (locale == 1) {
+      Get.updateLocale(Locale('en', 'US'));
+      localeInt = 1;
+      prefs.setInt('localeInt', 1);
+    } else {
+      Get.updateLocale(Locale('fa', 'IR'));
+      localeInt = 0;
+      prefs.setInt('localeInt', 0);
+    }
+    update();
+  }
+
+  Locale currentLocale() {
+    if (localeInt == 1) {
+      localeInt = 1;
+      return Locale('en', 'US');
+    } else {
+      localeInt = 0;
+      return Locale('fa', 'IR');
+    }
   }
 
   void updateDefaultPath(String? path) {

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../resources/db.dart';
 import './choose_theme_mode_widget.dart';
+import './choose_locale_widget.dart';
 
 class SettingsDrawerWidget extends StatelessWidget {
   @override
@@ -39,6 +40,10 @@ class SettingsDrawerWidget extends StatelessWidget {
                 subtitleSettings('changeThemeModeSettings'.tr),
                 separator(),
                 ChooseThemeModeWidget(),
+                separator(),
+                subtitleSettings('changeThemeModeSettings'.tr),
+                separator(),
+                ChooseLocaleWidget(),
                 separator(),
                 titleSettings('aboutTitle'.tr),
                 separator(),

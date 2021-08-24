@@ -24,7 +24,7 @@ class App extends StatelessWidget {
 
       // Localization config
       translations: Languages(),
-      locale: Locale('fa', 'IR'),
+      locale: Db.to.currentLocale(),
       fallbackLocale: Locale('fa', 'IR'),
 
       // Home
