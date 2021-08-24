@@ -41,7 +41,7 @@ class SettingsDrawerWidget extends StatelessWidget {
                 separator(),
                 ChooseThemeModeWidget(),
                 separator(),
-                subtitleSettings('changeThemeModeSettings'.tr),
+                subtitleSettings('languageTitle'.tr),
                 separator(),
                 ChooseLocaleWidget(),
                 separator(),
