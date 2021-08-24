@@ -33,15 +33,18 @@ class ChooseFileWidget extends StatelessWidget {
       child: GetBuilder<Logic>(
         builder: (_) {
           return ElevatedButton(
-            onPressed: _.inactiveButtons ? null : () async {
-              final FilePickerResult? chosenFiles = await FilePicker.platform.pickFiles(
-                allowMultiple: true,
-                type: FileType.any,
-              );
-              if (chosenFiles != null) {
-                Logic.to.updateFiles(chosenFiles.files);
-              }
-            },
+            onPressed: _.inactiveButtons
+                ? null
+                : () async {
+                    final FilePickerResult? chosenFiles =
+                        await FilePicker.platform.pickFiles(
+                      allowMultiple: true,
+                      type: FileType.any,
+                    );
+                    if (chosenFiles != null) {
+                      Logic.to.updateFiles(chosenFiles.files);
+                    }
+                  },
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -67,16 +70,18 @@ class ChooseFileWidget extends StatelessWidget {
             onPressed: _.filesList == null || _.inactiveButtons
                 ? null
                 : () async {
-              final PermissionStatus manageExternalStorageStatus = await Permission.manageExternalStorage.status;
-              if (manageExternalStorageStatus.isDenied) {
-                await Permission.manageExternalStorage.request();
-              }
-              final PermissionStatus storageStatus = await Permission.storage.status;
-              if (storageStatus.isDenied) {
-                await Permission.storage.request();
-              }
-              Logic.to.fixSubtitleFile(_.filesList!);
-            },
+                    final PermissionStatus manageExternalStorageStatus =
+                        await Permission.manageExternalStorage.status;
+                    if (manageExternalStorageStatus.isDenied) {
+                      await Permission.manageExternalStorage.request();
+                    }
+                    final PermissionStatus storageStatus =
+                        await Permission.storage.status;
+                    if (storageStatus.isDenied) {
+                      await Permission.storage.request();
+                    }
+                    Logic.to.fixSubtitleFile(_.filesList!);
+                  },
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -101,14 +106,13 @@ class ChooseFileWidget extends StatelessWidget {
 
   Widget listOfFiles() {
     return GetBuilder<Logic>(
-        builder: (_) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: _.filesList != null ? _.filesList!.length : 1,
-            itemBuilder: (context, int index) {
-              if (_.filesList == null) {
-                return Text('');
-              } else {
+      builder: (_) {
+        if (_.filesList != null) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: List.generate(
+              _.filesList!.length,
+              (index) {
                 return Text(
                   _.filesList![index].name,
                   textDirection: TextDirection.ltr,
@@ -116,10 +120,13 @@ class ChooseFileWidget extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 );
-              }
-            },
+              },
+            ),
           );
-        },
+        } else {
+          return Text('');
+        }
+      },
     );
   }
 

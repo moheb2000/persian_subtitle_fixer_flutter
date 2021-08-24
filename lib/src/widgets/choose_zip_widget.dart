@@ -33,16 +33,19 @@ class ChooseZipWidget extends StatelessWidget {
       child: GetBuilder<Logic>(
         builder: (_) {
           return ElevatedButton(
-            onPressed: _.inactiveButtons ? null : () async {
-              final FilePickerResult? chosenZips = await FilePicker.platform.pickFiles(
-                allowMultiple: true,
-                type: FileType.custom,
-                allowedExtensions: ['zip', 'tar'],
-              );
-              if (chosenZips != null) {
-                Logic.to.updateZips(chosenZips.files);
-              }
-            },
+            onPressed: _.inactiveButtons
+                ? null
+                : () async {
+                    final FilePickerResult? chosenZips =
+                        await FilePicker.platform.pickFiles(
+                      allowMultiple: true,
+                      type: FileType.custom,
+                      allowedExtensions: ['zip', 'tar'],
+                    );
+                    if (chosenZips != null) {
+                      Logic.to.updateZips(chosenZips.files);
+                    }
+                  },
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -68,16 +71,18 @@ class ChooseZipWidget extends StatelessWidget {
             onPressed: _.zipsList == null || _.inactiveButtons
                 ? null
                 : () async {
-              final PermissionStatus manageExternalStorageStatus = await Permission.manageExternalStorage.status;
-              if (manageExternalStorageStatus.isDenied) {
-                await Permission.manageExternalStorage.request();
-              }
-              final PermissionStatus storageStatus = await Permission.storage.status;
-              if (storageStatus.isDenied) {
-                await Permission.storage.request();
-              }
-              Logic.to.fixSubtitleZip(_.zipsList!);
-            },
+                    final PermissionStatus manageExternalStorageStatus =
+                        await Permission.manageExternalStorage.status;
+                    if (manageExternalStorageStatus.isDenied) {
+                      await Permission.manageExternalStorage.request();
+                    }
+                    final PermissionStatus storageStatus =
+                        await Permission.storage.status;
+                    if (storageStatus.isDenied) {
+                      await Permission.storage.request();
+                    }
+                    Logic.to.fixSubtitleZip(_.zipsList!);
+                  },
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -103,23 +108,25 @@ class ChooseZipWidget extends StatelessWidget {
   Widget listOfZips() {
     return GetBuilder<Logic>(
       builder: (_) {
-        return ListView.builder(
-          shrinkWrap: true,
-          itemCount: _.zipsList != null ? _.zipsList!.length : 1,
-          itemBuilder: (context, int index) {
-            if (_.zipsList == null) {
-              return Text('');
-            } else {
-              return Text(
-                _.zipsList![index].name,
-                textDirection: TextDirection.ltr,
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              );
-            }
-          },
-        );
+        if (_.zipsList != null) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: List.generate(
+              _.zipsList!.length,
+              (index) {
+                return Text(
+                  _.zipsList![index].name,
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                );
+              },
+            ),
+          );
+        } else {
+          return Text('');
+        }
       },
     );
   }
