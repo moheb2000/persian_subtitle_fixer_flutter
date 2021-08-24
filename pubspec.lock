@@ -406,6 +406,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  utf_convert:
+    dependency: "direct main"
+    description:
+      name: utf_convert
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.10.0+1"
   vector_math:
     dependency: transitive
     description:

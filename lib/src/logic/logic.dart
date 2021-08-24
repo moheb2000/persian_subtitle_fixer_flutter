@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:archive/archive.dart';
 import 'package:get/get.dart';
+import 'package:utf_convert/utf_convert.dart';
 
 import './windows1256_persian.dart';
 import '../resources/db.dart';
@@ -32,7 +33,15 @@ class Logic extends GetxController {
         try {
           fixedString = utf8.decode(firstFile);
         } catch (e) {
-          fixedString = Windows1256PersianCodec().decode(firstFile);
+          try {
+            if (hasUtf16Bom(firstFile)) {
+              fixedString = decodeUtf16(firstFile);
+            } else {
+              throw new FormatException('Invalid UTF-16 byte');
+            }
+          } catch (er) {
+            fixedString = Windows1256PersianCodec().decode(firstFile);
+          }
         }
         final lestFile =
             await File('${Db.to.defaultDirectoryPath}/[Fixed]${file.name}')
@@ -76,7 +85,15 @@ class Logic extends GetxController {
             try {
               fixedString = utf8.decode(data);
             } catch (e) {
-              fixedString = Windows1256PersianCodec().decode(data);
+              try {
+                if (hasUtf16Bom(data)) {
+                  fixedString = decodeUtf16(data);
+                } else {
+                  throw new FormatException('Invalid UTF-16 byte');
+                }
+              } catch (er) {
+                fixedString = Windows1256PersianCodec().decode(data);
+              }
             }
             final lestFile =
             await File('${Db.to.defaultDirectoryPath}/$zipName/[Fixed]${file.name}')
