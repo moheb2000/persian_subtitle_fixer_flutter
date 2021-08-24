@@ -8,12 +8,7 @@ import '../resources/db.dart';
 import '../widgets/choose_theme_mode_widget.dart';
 import '../widgets/choose_locale_widget.dart';
 
-class IntroScreen extends StatefulWidget {
-  @override
-  _IntroScreenState createState() => _IntroScreenState();
-}
-
-class _IntroScreenState extends State<IntroScreen> {
+class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<PageViewModel> listPagesViewModel = [
