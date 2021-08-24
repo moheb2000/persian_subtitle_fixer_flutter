@@ -26,7 +26,7 @@ class IntroScreen extends StatelessWidget {
           ],
         ),
         image: Image.asset(
-          'assets/images/welcome.png',
+          'assets/images/language.png',
           height: 180,
         ),
       ),
@@ -34,7 +34,7 @@ class IntroScreen extends StatelessWidget {
         title: 'introTwoTitle'.tr,
         body: 'introTwoBody'.tr,
         image: Image.asset(
-          'assets/images/android.png',
+          'assets/images/welcome.png',
           height: 180,
         ),
       ),
