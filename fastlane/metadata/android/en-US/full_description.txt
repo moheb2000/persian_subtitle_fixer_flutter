@@ -1,4 +1,4 @@
-Persian Subtitle Fixer is an encoding converter for android devices. it gets persian subtitles with srt and ass formats and convert their encodings to UTF-8. it supports zip and tar files so user can import lots of subtitles as an archive file to this app.
+Persian Subtitle Fixer is an encoding converter for android devices. it gets Persian subtitles with srt and ass formats and convert their encodings to UTF-8. it supports zip and tar files so user can import lots of subtitles as an archive file to this app.
 
 Persian Subtitle Fixer features:
 
@@ -7,11 +7,11 @@ Persian Subtitle Fixer features:
 <li>UTF-8 encoding support</li>
 <li>Windows1256 encoding support</li>
 <li>UTF-16 support</li>
-<li>srt and ass format support</li>
-<li>zip and tar archive support</li>
+<li>srt and ass formats support</li>
+<li>zip and tar archives support</li>
 <li>choosing multiple files and archives</li>
 <li>Use the built-in file manager for choosing files and folders</li>
-<li>System, light and dark mode</li>
+<li>System, light and dark modes</li>
 <li>No ads</li>
 <li>No trackers</li>
 </ul>
