@@ -1,0 +1,15 @@
+- File manager is now compliant with Android 11 storage API security restrictions.
+
+- Added UTF-16 support.
+
+- Added zip and tar archives support for converting multiple subtitles.
+
+- Added progress indicator.
+
+- Added en_US (English) locale to app.
+
+- Fixed Zero Width Non-Joiner bug in Windows1256 converter.
+
+- Fixed some UI problems for showing list of files and archives.
+
+- In this version, state management completely reimplemented with getx.
