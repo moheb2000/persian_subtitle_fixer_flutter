@@ -15,7 +15,7 @@
     </queries>
    <application
         android:requestLegacyExternalStorage="true"
-        android:label="اصلاح زیرنویس پارسی"
+        android:label="Persian Subtitle Fixer"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
